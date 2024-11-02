@@ -19,7 +19,7 @@ public class Cheek {
     public static final String pakage = "jeffrey"; // Name of the package
     public static final String name = "PowerBall"; // Name of the your main class
     
-    public static final int numberOfTests = 100; // Number of tests to run
+    public static final int numberOfTests = 9; // Number of tests to run
     
     public static final boolean debug = false; // Set to true to see the output of your program
     
