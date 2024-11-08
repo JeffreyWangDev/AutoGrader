@@ -1,13 +1,11 @@
 package jeffrey;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,11 +13,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class Cheek {
+public class Check {
     public static final String pakage = "jeffrey"; // Name of the package
     public static final String name = "PowerBall"; // Name of the your main class
     
-    public static final int numberOfTests = 9; // Number of tests to run
+    public static final int numberOfTests = 10; // Number of tests to run
     
     public static final boolean debug = false; // Set to true to see the output of your program
     
@@ -30,12 +28,16 @@ public class Cheek {
         public static final String RED_TEXT = "\u001B[31m"; 
         public static final String GREEN_TEXT = "\u001B[32m"; 
         public static final String WHITE_TEXT = "\u001B[37m"; 
-        
         public static void println(String text,String color) {
+            System.out.println(text);
+        }  
+        public static void println(String text,String color, boolean enabled) {
             System.out.println(color+text+RESET);
         }
         
     }
+    
+    
     public static class RuntimeCheek {
         
         public static String run(String pakage, String name, String input, boolean compile) {
@@ -178,8 +180,6 @@ public class Cheek {
                 }
                 
             } catch (IOException e) {
-//                System.out.println("An error occurred.");
-//                e.printStackTrace();
                 String toPrint ="FileHeader cheek:\n\tError while cheeking filename";
                 Color.println(toPrint, Color.RED_TEXT);
                 return(false);
@@ -309,7 +309,7 @@ public class Cheek {
         List<String> files = Helper.listFilesForFolder(new File("./src/"+pakage));
         boolean toGo = true;
         for (String i : files) {
-            if (i.endsWith(".java")&&!i.equals("Cheek.java")) {
+            if (i.endsWith(".java")&&!i.equals("Check.java")) {
                 System.out.println(i);
                 boolean cheek = Helper.staticCheek("./src/" + pakage + "/" + i);
                 if (!cheek) {
