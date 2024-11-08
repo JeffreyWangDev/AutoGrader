@@ -17,9 +17,9 @@ public class Check {
     public static final String pakage = "jeffrey"; // Name of the package
     public static final String name = "PowerBall"; // Name of the your main class
     
-    public static final int numberOfTests = 10; // Number of tests to run
+    public static final int numberOfTests = 100; // Number of tests to run
     
-    public static final boolean debug = false; // Set to true to see the output of your program
+    public static final boolean debug = true; // Set to true to see the output of your program
     
     public static class Color{
         public static final String RESET = "\u001B[0m"; 
@@ -381,19 +381,28 @@ public class Check {
                 }
                 if (totalWinnings == 0) {
                     if(outcome.equals("Sorry,youdidnotwin.")) {
-                        Color.println("Passed test "+count, Color.GREEN_TEXT);
                         runtimeResults[count] = true;
-                    }else {
-                        Color.println("Failed test "+count, Color.RED_TEXT);
                     }
                 }else {
                     if (outcome.equals("Congratulations!Youwon:$"+ totalWinnings)) {
-                        Color.println("Passed test "+count, Color.GREEN_TEXT);
                         runtimeResults[count] = true;
-                    } else {
-                        Color.println("Failed test "+count, Color.RED_TEXT);
                     }
                 }
+                
+                if(0>powerBall || powerBall>39 
+                        || 0>playerNum1 || playerNum1>59 
+                        || 0>playerNum2 || playerNum2>59 
+                        || 0>playerNum3 || playerNum3>59 
+                        || 0>playerNum4 || playerNum4>59 
+                        || 0>playerNum5 || playerNum5>59) {
+                    runtimeResults[count] = false;
+                }
+                if(runtimeResults[count]) {
+                    Color.println("Passed test "+count, Color.GREEN_TEXT);
+                }else {
+                    Color.println("Failed test "+count, Color.RED_TEXT);
+                }
+                
             } else {
                 Color.println("Failed test "+count, Color.RED_TEXT);
             }

@@ -65,7 +65,7 @@ public class PowerBall {
     public static PowerBall generateRandom() {
         int[] numbers = new int[5];
         for (int i = 0; i < 5; i++) {
-            numbers[i] = (int) (Math.random() * 69) + 1;
+            numbers[i] = (int) (Math.random() * 59) + 1;
         }
         int powerBall = (int) (Math.random() * 39) + 1;
         return new PowerBall(numbers, powerBall);
