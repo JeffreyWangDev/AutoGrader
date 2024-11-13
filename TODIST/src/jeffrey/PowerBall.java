@@ -41,7 +41,7 @@ public class PowerBall {
         this.powerBall = powerBall;
     }
     
-    public String toString() {
+    public String returnString() {
         String result = "";
         for (int i = 0; i < numbers.length; i++) {
             result += numbers[i] + "\t";
@@ -75,7 +75,7 @@ public class PowerBall {
 
         PowerBall winningNumbers = PowerBall.generateRandom();
         System.out.println("The winning number combination is: ");
-        System.out.println(winningNumbers);
+        System.out.println(winningNumbers.returnString());
         int[] playerNumbers = new int[5];
         int playerPowerBall = 0;
         Scanner scanner = new Scanner(System.in);
@@ -95,7 +95,7 @@ public class PowerBall {
         playerPowerBall = scanner.nextInt();
         PowerBall player = new PowerBall(playerNumbers, playerPowerBall);
         System.out.println("Your number combination is: ");
-        System.out.println(player);
+        System.out.println(player.returnString());
         int winnings = winningNumbers.cheekWinnings(player);
         if (winnings == 0) {
             System.out.println("Sorry, you did not win.");
