@@ -1,4 +1,8 @@
+// Please read the help and info doc before using!
+
 package jeffrey;
+
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,7 +23,7 @@ public class Check {
     
     public static final int numberOfTests = 100; // Number of tests to run
     
-    public static final boolean debug = true; // Set to true to see the output of your program
+    public static final boolean debug = false; // Set to true to see the output of your program
     
     public static class Color{
         public static final String RESET = "\u001B[0m"; 
@@ -71,6 +75,7 @@ public class Check {
             consumer.join();
             String output = consumer.getOutput().toString();
             if(code == 1) {
+                
                 return("Error");
             }else {
                 return output;
@@ -249,7 +254,7 @@ public class Check {
             for (int i = 0; i < runtimeInput.length; i++) {
                 int[] nums = new int[5];
                 for (int i1 = 0; i1 < 5; i1++) {
-                    nums[i1] = (int) (Math.random() * 69) + 1;
+                    nums[i1] = (int) (Math.random() * 59) + 1;
                 }
                 int end = (int) (Math.random() * 39) + 1;
 
@@ -334,7 +339,7 @@ public class Check {
                 + "([0-9]{1,2})\t([0-9]{1,2})\t([0-9]{1,2})"
                 + "\t([0-9]{1,2})\t([0-9]{1,2})\t"
                 + "PowerBall:([0-9]{1,2})"
-                + "((?:Sorry,youdidnotwin\\.)|(?:Congratulations!Youwon:\\$([0-9]*)))";
+                + "((?:Sorry,youdidnotwin\\..*)|(?:Congratulations!Youwon:\\$([0-9]*)))";
 
         Pattern pattern = Pattern.compile(project3Regex);
         int count = 0;

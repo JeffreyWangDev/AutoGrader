@@ -1,13 +1,15 @@
+// Please read the help and info doc before using!
+
 package jeffrey;
+
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,7 +21,7 @@ public class Check {
     public static final String pakage = "jeffrey"; // Name of the package
     public static final String name = "PowerBall"; // Name of the your main class
     
-    public static final int numberOfTests = 9; // Number of tests to run
+    public static final int numberOfTests = 100; // Number of tests to run
     
     public static final boolean debug = false; // Set to true to see the output of your program
     
@@ -30,12 +32,16 @@ public class Check {
         public static final String RED_TEXT = "\u001B[31m"; 
         public static final String GREEN_TEXT = "\u001B[32m"; 
         public static final String WHITE_TEXT = "\u001B[37m"; 
-        
         public static void println(String text,String color) {
+            System.out.println(text);
+        }  
+        public static void println(String text,String color, boolean enabled) {
             System.out.println(color+text+RESET);
         }
         
     }
+    
+    
     public static class RuntimeCheek {
         
         public static String run(String pakage, String name, String input, boolean compile) {
@@ -69,6 +75,7 @@ public class Check {
             consumer.join();
             String output = consumer.getOutput().toString();
             if(code == 1) {
+                
                 return("Error");
             }else {
                 return output;
@@ -178,8 +185,6 @@ public class Check {
                 }
                 
             } catch (IOException e) {
-//                System.out.println("An error occurred.");
-//                e.printStackTrace();
                 String toPrint ="FileHeader cheek:\n\tError while cheeking filename";
                 Color.println(toPrint, Color.RED_TEXT);
                 return(false);
@@ -249,7 +254,7 @@ public class Check {
             for (int i = 0; i < runtimeInput.length; i++) {
                 int[] nums = new int[5];
                 for (int i1 = 0; i1 < 5; i1++) {
-                    nums[i1] = (int) (Math.random() * 69) + 1;
+                    nums[i1] = (int) (Math.random() * 59) + 1;
                 }
                 int end = (int) (Math.random() * 39) + 1;
 
@@ -334,7 +339,7 @@ public class Check {
                 + "([0-9]{1,2})\t([0-9]{1,2})\t([0-9]{1,2})"
                 + "\t([0-9]{1,2})\t([0-9]{1,2})\t"
                 + "PowerBall:([0-9]{1,2})"
-                + "((?:Sorry,youdidnotwin\\.)|(?:Congratulations!Youwon:\\$([0-9]*)))";
+                + "((?:Sorry,youdidnotwin\\..*)|(?:Congratulations!Youwon:\\$([0-9]*)))";
 
         Pattern pattern = Pattern.compile(project3Regex);
         int count = 0;
@@ -381,19 +386,28 @@ public class Check {
                 }
                 if (totalWinnings == 0) {
                     if(outcome.equals("Sorry,youdidnotwin.")) {
-                        Color.println("Passed test "+count, Color.GREEN_TEXT);
                         runtimeResults[count] = true;
-                    }else {
-                        Color.println("Failed test "+count, Color.RED_TEXT);
                     }
                 }else {
                     if (outcome.equals("Congratulations!Youwon:$"+ totalWinnings)) {
-                        Color.println("Passed test "+count, Color.GREEN_TEXT);
                         runtimeResults[count] = true;
-                    } else {
-                        Color.println("Failed test "+count, Color.RED_TEXT);
                     }
                 }
+                
+                if(0>powerBall || powerBall>39 
+                        || 0>playerNum1 || playerNum1>59 
+                        || 0>playerNum2 || playerNum2>59 
+                        || 0>playerNum3 || playerNum3>59 
+                        || 0>playerNum4 || playerNum4>59 
+                        || 0>playerNum5 || playerNum5>59) {
+                    runtimeResults[count] = false;
+                }
+                if(runtimeResults[count]) {
+                    Color.println("Passed test "+count, Color.GREEN_TEXT);
+                }else {
+                    Color.println("Failed test "+count, Color.RED_TEXT);
+                }
+                
             } else {
                 Color.println("Failed test "+count, Color.RED_TEXT);
             }

@@ -83,7 +83,7 @@ public class PowerBall {
         
         for (int i = 0; i < 5; i++) {
             int num = scanner.nextInt();
-            if (num < 1 || num > 69) {
+            if (num < 1 || num > 59) {
                 System.out.println("Invalid number. "
                         + "Please enter a number between 1 and 69.");
                 i--;
