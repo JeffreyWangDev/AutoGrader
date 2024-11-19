@@ -87,7 +87,6 @@ public class PowerBall {
                 System.out.println("Invalid number. "
                         + "Please enter a number between 1 and 69.");
                 i--;
-                throw new IllegalArgumentException();
             }
             playerNumbers[i] = num;
         }

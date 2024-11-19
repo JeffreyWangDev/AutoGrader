@@ -1,6 +1,8 @@
-// Please read the help and info doc before using!
+// Please read the help and info doc before using! You can Control+A and Control+C
+// change ALL text that is highlighted 
 
 package jeffrey;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class Check {
     public static final String pakage = "jeffrey"; // Name of the package
@@ -40,7 +43,7 @@ public class Check {
     }
     
     
-    public static class RuntimeCheek {
+    public static class RuntimeCheck {
         
         public static String run(String pakage, String name, String input, boolean compile) {
             try {
@@ -129,8 +132,8 @@ public class Check {
         }
     }
     
-    public static class StaticCheek {
-        public static boolean cheekLineSize(String filename) {
+    public static class StaticCheck {
+        public static boolean checkLineSize(String filename) {
             List<String> badLines = new ArrayList<String>();
             boolean toReturn = true;
             try {
@@ -147,15 +150,15 @@ public class Check {
                   }
                 fileReader.close();
             } catch (FileNotFoundException e) {
-                String toPrint = "Line Size cheek:\n\tError while cheeking line size";
+                String toPrint = "Line Size check:\n\tError while checking line size";
                 Color.println(toPrint, Color.RED_TEXT);
                 toReturn = false;
             }
             if(toReturn) {
-                String toPrint = "Line Size cheek:\n\tAll lines are less than 80 characters";
+                String toPrint = "Line Size check:\n\tAll lines are less than 80 characters";
                 Color.println(toPrint, Color.GREEN_TEXT);
             }else {
-                String toPrint = "Line Size cheek:\n\tFollowing lines are more than 80 characters:";
+                String toPrint = "Line Size check:\n\tFollowing lines are more than 80 characters:";
                 Color.println(toPrint, Color.RED_TEXT);
                 for (String i : badLines) {
                     Color.println("\t\t\t" + i, Color.RED_TEXT);
@@ -164,7 +167,7 @@ public class Check {
             return(toReturn);
         }
         
-        public static boolean cheekFileHeader(String filename) {
+        public static boolean checkFileHeader(String filename) {
             try {
                 Path fileObj = new File(filename).toPath();
                 String content = Files.readString(fileObj);
@@ -173,24 +176,24 @@ public class Check {
                 Pattern pat = Pattern.compile(regex);
                 Matcher m = pat.matcher(content);
                 if(m.matches()) {
-                    String toPrint = "FileHeader cheek:\n\tName: "+m.group(3)+"\n\tTitle: "+m.group(1)+"\n\tClass: "+m.group(2);
+                    String toPrint = "FileHeader check:\n\tName: "+m.group(3)+"\n\tTitle: "+m.group(1)+"\n\tClass: "+m.group(2);
                     Color.println(toPrint, Color.GREEN_TEXT);
                     return true;
                 }else {
-                    String toPrint ="FileHeader cheek:\n\tNo file header found";
+                    String toPrint ="FileHeader check:\n\tNo file header found";
                     Color.println(toPrint, Color.RED_TEXT);
                     return(false);
                 }
                 
             } catch (IOException e) {
-                String toPrint ="FileHeader cheek:\n\tError while cheeking filename";
+                String toPrint ="FileHeader check:\n\tError while checking filename";
                 Color.println(toPrint, Color.RED_TEXT);
                 return(false);
             }
             
         }
     
-        public static boolean cheekFortabs(String filename) {
+        public static boolean checkFortabs(String filename) {
             List<String> badLines = new ArrayList<String>();
             boolean toReturn = true;
             try {
@@ -208,14 +211,14 @@ public class Check {
                 fileReader.close();
             } catch (FileNotFoundException e) {
                 toReturn = false;
-                String toPrint = "Tab cheek:\n\tError while cheeking tabs";
+                String toPrint = "Tab check:\n\tError while checking tabs";
                 Color.println(toPrint, Color.RED_TEXT);
             }
             if(toReturn) {
-                String toPrint = "Tab cheek:\n\tNo tabs found";
+                String toPrint = "Tab check:\n\tNo tabs found";
                 Color.println(toPrint, Color.GREEN_TEXT);
                 }else {
-                    String toPrint = "Tab cheek:\n\tFollowing lines contain tabs:";
+                    String toPrint = "Tab check:\n\tFollowing lines contain tabs:";
                     Color.println(toPrint, Color.RED_TEXT);
                     for (String i : badLines) {
                         Color.println("\t\t\t" + i, Color.RED_TEXT);
@@ -240,12 +243,12 @@ public class Check {
             return toReturn;
         }
         
-        public static boolean staticCheek(String filename) {
+        public static boolean staticCheck(String filename) {
 
-            boolean fileCheek  = StaticCheek.cheekFileHeader(filename);
-            boolean lineCheek = StaticCheek.cheekLineSize(filename);
-            boolean tabsCheek = StaticCheek.cheekFortabs(filename);
-            return fileCheek && lineCheek && tabsCheek;
+            boolean fileCheck  = StaticCheck.checkFileHeader(filename);
+            boolean lineCheck = StaticCheck.checkLineSize(filename);
+            boolean tabsCheck = StaticCheck.checkFortabs(filename);
+            return fileCheck && lineCheck && tabsCheck;
         }
         public static String[] makeRuntimeInputGood(int amount) {
             String [] runtimeInput = new String[amount];
@@ -314,8 +317,8 @@ public class Check {
         for (String i : files) {
             if (i.endsWith(".java")&&!i.equals("Check.java")) {
                 System.out.println(i);
-                boolean cheek = Helper.staticCheek("./src/" + pakage + "/" + i);
-                if (!cheek) {
+                boolean check = Helper.staticCheck("./src/" + pakage + "/" + i);
+                if (!check) {
                     toGo = false;
                 }
             }
@@ -343,7 +346,7 @@ public class Check {
         int count = 0;
         boolean[] runtimeResults = new boolean[runtimeInputGood.length+runtimeInputBad.length];
         for (String i : runtimeInputGood) {
-            String runTime = RuntimeCheek.run(pakage, name, i, count==0);
+            String runTime = RuntimeCheck.run(pakage, name, i, count==0);
             if (debug) {
                 System.out.println(runTime);
             }
@@ -412,7 +415,7 @@ public class Check {
             count++;
         }
         for (String i : runtimeInputBad) {
-            String runTime = RuntimeCheek.run(pakage, name, i, false);
+            String runTime = RuntimeCheck.run(pakage, name, i, false);
             if (debug) {
                 System.out.println(runTime);
             }
@@ -448,3 +451,4 @@ public class Check {
             }
     }
 }
+
